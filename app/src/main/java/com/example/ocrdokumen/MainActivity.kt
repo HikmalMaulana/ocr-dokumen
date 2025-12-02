@@ -1,12 +1,18 @@
 package com.example.ocrdokumen
 
 import android.app.Dialog
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.graphics.drawable.shapes.Shape
 import android.icu.text.CaseMap
 import android.os.Bundle
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -59,10 +65,20 @@ class MainActivity : ComponentActivity() {
 
             OcrDokumenTheme {
 
+                val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
+                val bluetoothAdapter : BluetoothAdapter? = bluetoothManager.adapter;
+
+
                 var currentBluetoothConnection = remember { mutableStateOf("") }
                 val scope = rememberCoroutineScope()
-                val snackbarHostState = remember { SnackbarHostState() }
+                val snackbarHostState = remember { SnackbarHostState() }        // Snackbar Setelah melakukan pengambilan foto
                 var confirmPhoto = remember { mutableStateOf(false) }
+
+                if (bluetoothAdapter == null) {
+                    // Hp Kentang
+                    println("Device Tidak Support BLuetooth / HP KENTANG");
+                }
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
 
@@ -76,16 +92,33 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.align(Alignment.BottomCenter),
                             )
                         Column (modifier = Modifier.align(Alignment.TopCenter)) {
+                            // ini adalah tombol setting bluetooth
                             Row() {
-                                // ini adalah tombol setting bluetooth
+                                // TODO: Ganti Ini Ke Dropdown Button
                                 OutlinedTextField(value = currentBluetoothConnection.value,
                                     onValueChange = { text -> currentBluetoothConnection.value = text}
                                 )
 
                                 Button(
                                     onClick = {
+                                        // Cek apabila Hp Support Bluetooth
+                                            // Hp Tidak Kentang
+                                        scope.launch { snackbarHostState.showSnackbar("Hp Tidak Kentang") }
+                                        scope.launch { snackbarHostState.showSnackbar("Debug 1") }
+                                        println()
+                                        if (bluetoothAdapter?.isEnabled==false) {
+                                            scope.launch { snackbarHostState.showSnackbar("Bluetooth Tidak Diizinkan") }
+                                            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                                            // TODO: Minta Izin Bluetooth
+                                            startActivity(enableBtIntent);
+
+                                                val BtIntent = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
+                                        }
+                                        else {
+                                            scope.launch { snackbarHostState.showSnackbar("Bluetooth Diizinkan") }
+                                        }
+
                                     //bluetooth
-                                        scope.launch { snackbarHostState.showSnackbar("Bluetooth") }
                                 },
                                     shape= RectangleShape,
                                     modifier = Modifier.padding( all = 10.dp)
@@ -103,6 +136,7 @@ class MainActivity : ComponentActivity() {
                                 {
                                     Text(text = "Pair Ulang")
                                 }
+                                // REFRESH KONEKSI BLUETOOTH
                                 Button(
                                     shape = RectangleShape,
                                     onClick = {
@@ -116,6 +150,7 @@ class MainActivity : ComponentActivity() {
                         // // // Kamera
                         Button(
                             onClick = { // button untuk kamera
+                                // TODO: Sistem Akses Kamera
                                 confirmPhoto.value = true
 
                         },
@@ -126,11 +161,12 @@ class MainActivity : ComponentActivity() {
 
                         // DoubleCheck Photo
                         when {
-                            confirmPhoto.value -> {
+                            confirmPhoto.value -> { // TODO: &&
                                 confirmTakePhoto(
                                     onDismissRequest = {confirmPhoto.value = false},
                                     onConfirmation = {
                                         confirmPhoto.value = false
+                                        // NOTES
                                         // Kirim Ke Bluetooth
                                         println("Mengirim Ke Bluetooth")
 
