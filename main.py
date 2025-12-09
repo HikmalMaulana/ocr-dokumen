@@ -1,7 +1,7 @@
 import tkinter
 
 def main():
-    pass
+    print("Bapak Kau")
 
 if __name__ == "__main__":
     main()
