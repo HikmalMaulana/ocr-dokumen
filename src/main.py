@@ -3,6 +3,7 @@ import argparse
 import bleak
 import asyncio
 import PySimpleGUI as PSG
+import cv2 as opcv
 
 
 async def main():
