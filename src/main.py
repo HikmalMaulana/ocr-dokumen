@@ -1,11 +1,13 @@
 # Untuk Parsing CLI
 import argparse
-# import tkinter
+import bleak
+import asyncio
+import PySimpleGUI as PSG
 
 
-def main():
+async def main():
     print("Bapak Kau")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
