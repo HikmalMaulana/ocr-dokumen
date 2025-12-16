@@ -6,10 +6,31 @@ from PIL import Image
 import io
 import win32clipboard
 
+CUSFILEPATH = {
+     1 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0001.jpg",
+     2 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0002.jpg",
+     3 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0003.jpg",
+     4 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0004.jpg",
+     5 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0005.jpg",
+     6 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0006.jpg",
+     7 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0007.jpg",
+     8 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0008.jpg",
+     9 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0009.jpg",
+     10 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0010.jpg",
+     11 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0011.jpg",
+     12 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0012.jpg",
+     13 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0013.jpg",
+     14 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0014.jpg",
+     15 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0015.jpg",
+     16 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0016.jpg",
+     17 : r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0017.jpg",
+}
+
+#from cusfile import *
 # =========================
 # 1. PATH GAMBAR
 # =========================
-image_path = r"C:\Users\Lenovo\Downloads\ocr-dokumen\src\data\IMG-20251111-WA0001.jpg"
+image_path = CUSFILEPATH[1]
 def image_processing(image):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     _, threshold = cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY)
