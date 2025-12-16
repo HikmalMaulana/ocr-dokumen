@@ -1,14 +1,35 @@
 # Untuk Parsing CLI
 import argparse
-import bleak
-import asyncio
-import PySimpleGUI as PSG
 import cv2 as opcv
+import flask
 
 
-async def main():
-    print("Bapak Kau")
+app = flask.Flask(__name__)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+@app.route("/")
+def home():
+    return "Server hidup"
+
+
+@app.route("/ping", methods=["GET"])
+def ping():
+    return "pong"
+
+
+@app.route("/pong", methods=["POST"])
+def upload():
+    # TODO:
+
+    # Lakukan Get Data,
+
+    # Simpan pada src/img/
+
+    # Fungsi SCAN
+
+    # Fungsi mengirimkan hasil ke clipboard
+
+    return "Server hidup"
+
+
+app.run(host="0.0.0.0", port=8000)
