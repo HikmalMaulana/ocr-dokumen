@@ -1,3 +1,4 @@
 flask==3.1.2
 PySimpleGui==5.0.8.3
 opencv-python==4.12.0.88
+pyperclip==1.11.0
