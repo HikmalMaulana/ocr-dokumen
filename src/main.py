@@ -1,14 +1,14 @@
 # Untuk Parsing CLI
 import argparse
-import bleak
 import asyncio
-import PySimpleGUI as PSG
-import cv2 as opcv
+import cv2 as ocv
 
+import connectioncr
+import tahu
 
-async def main():
-    print("Bapak Kau")
-
+def main():
+    print("Ardra ❤️ Fauzan")
+    connectioncr.connect_this()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
